@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { MdSend, MdOutlineClear } from 'react-icons/md';
 import LoadingSpinner from '../common/LoadingSpinner';
+import { API_BASE_URL } from '../../constants';
 
 interface Message {
     id: number;
@@ -48,7 +49,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     };
 
     const fetchConversations = async () => {
-        const response = await fetch('${API_BASE_URL}/backend/get_conversations.php', {
+        const response = await fetch(`${API_BASE_URL}/backend/get_conversations.php`, {
             credentials: 'include' // This is crucial for sending the cookie
         });
         const data = await response.json();
@@ -83,7 +84,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
         setMessage('');
 
         try {
-            const response = await fetch('${API_BASE_URL}/backend/chat.php', {
+            const response = await fetch(`${API_BASE_URL}/backend/chat.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: userMessage.content, sessionId }),

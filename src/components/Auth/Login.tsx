@@ -1,6 +1,7 @@
 // src/components/Auth/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../constants';
 
 interface LoginProps {
     onLogin: (user: { id: number; username: string }) => void;
@@ -16,7 +17,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         e.preventDefault();
         setMessage('');
         try {
-            const response = await fetch('${API_BASE_URL}/backend/login.php', {
+            const response = await fetch(`${API_BASE_URL}/backend/login.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })

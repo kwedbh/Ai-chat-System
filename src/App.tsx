@@ -1,35 +1,34 @@
-// src/App.tsx
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Chat from "./components/Chat/Chat";
-import LoadingSpinner from "./components/common/LoadingSpinner"; // Make sure to create this file
+import LoadingSpinner from "./components/common/LoadingSpinner";
 import './index.css';
-import { API_BASE_URL } from "./components/constants";
+// CORRECT: The constant file is in the 'src' directory, so the path should be relative to it.
+import { API_BASE_URL } from "./constants";
 
 const App: React.FC = () => {
     const [user, setUser] = useState<{ id: number; username: string } | null>(null);
-    const [loading, setLoading] = useState(true); // New loading state
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                // Fetch the PHP session check endpoint
-                const response = await fetch("${API_BASE_URL}/backend/check_session.php", {
+                // CORRECT: Use the constant directly with the script name
+                const response = await fetch(`${API_BASE_URL}/backend/check_session.php`, {
                     credentials: "include",
                 });
                 const data = await response.json();
                 
-                // If a session exists, set the user state
                 if (data.isAuthenticated) {
                     setUser(data.user);
                 }
             } catch (error) {
                 console.error("Session check failed:", error);
             } finally {
-                setLoading(false); // Set loading to false regardless of the outcome
+                setLoading(false);
             }
         };
 
@@ -38,7 +37,8 @@ const App: React.FC = () => {
 
     const handleLogout = async () => {
         try {
-            await fetch("${API_BASE_URL}/backend/logout.php", {
+            // CORRECT: Use the constant directly with the script name
+            await fetch(`${API_BASE_URL}/backend/logout.php`, {
                 credentials: "include",
             });
             setUser(null);
@@ -48,7 +48,6 @@ const App: React.FC = () => {
         }
     };
     
-    // Show a loading spinner while checking the session
     if (loading) {
         return (
             <div className="w-full h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
@@ -60,15 +59,12 @@ const App: React.FC = () => {
     return (
         <div className="w-full h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
             {user ? (
-                // If logged in → Show Chat
                 <Chat user={user} onLogout={handleLogout} />
             ) : (
-                // If not logged in → Show Auth Routes
                 <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
                     <Routes>
                         <Route path="/login" element={<Login onLogin={setUser} />} />
                         <Route path="/register" element={<Register />} />
-                        {/* Default route → login */}
                         <Route path="*" element={<Login onLogin={setUser} />} />
                     </Routes>
                 </div>

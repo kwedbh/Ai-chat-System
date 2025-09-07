@@ -1,6 +1,7 @@
 // src/components/Auth/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../constants';
 
 const Register: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Register: React.FC = () => {
         setMessage('');
 
         try {
-            const response = await fetch('${API_BASE_URL}/backend/register.php', {
+            const response = await fetch(`${API_BASE_URL}/backend/register.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
