@@ -27,9 +27,17 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
+    // This useEffect will run when the component first mounts
     useEffect(() => {
-        fetchConversations();
+        // You can keep any non-API related logic here if needed
     }, []);
+
+    // This NEW useEffect will only run when the `user` object is a valid user
+    useEffect(() => {
+        if (user && user.id) {
+            fetchConversations();
+        }
+    }, [user]); // The dependency array ensures this runs only when `user` changes
 
     useEffect(() => {
         scrollToBottom();
@@ -40,7 +48,9 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     };
 
     const fetchConversations = async () => {
-        const response = await fetch('http://localhost//ai-chat-system/my-ai-chat/backend/get_conversations.php');
+        const response = await fetch('http://localhost/ai-chat-system/my-ai-chat/backend/get_conversations.php', {
+            credentials: 'include' // This is crucial for sending the cookie
+        });
         const data = await response.json();
         if (data.success) {
             setConversations(data.conversations);
@@ -49,7 +59,9 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
 
     const fetchSession = async (id: number) => {
         setIsLoading(true);
-        const response = await fetch(`http://localhost//ai-chat-system/my-ai-chat/backend/get_session.php?sessionId=${id}`);
+        const response = await fetch(`http://localhost/ai-chat-system/my-ai-chat/backend/get_session.php?sessionId=${id}`, {
+            credentials: 'include' // This is crucial for sending the cookie
+        });
         const data = await response.json();
         if (data.success) {
             setChatHistory(data.messages);
@@ -71,10 +83,11 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
         setMessage('');
 
         try {
-            const response = await fetch('http://localhost//ai-chat-system/my-ai-chat/backend/chat.php', {
+            const response = await fetch('http://localhost/ai-chat-system/my-ai-chat/backend/chat.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: userMessage.content, sessionId })
+                body: JSON.stringify({ prompt: userMessage.content, sessionId }),
+                credentials: 'include'
             });
 
             const data = await response.json();
@@ -100,7 +113,9 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
         }
 
         if (window.confirm('Are you sure you want to delete this conversation?')) {
-            const response = await fetch(`http://localhost//ai-chat-system/my-ai-chat/backend/clear_session.php?sessionId=${sessionId}`);
+            const response = await fetch(`http://localhost/ai-chat-system/my-ai-chat/backend/clear_session.php?sessionId=${sessionId}`, {
+                credentials: 'include'
+            });
             const data = await response.json();
             if (data.success) {
                 setChatHistory([]);
