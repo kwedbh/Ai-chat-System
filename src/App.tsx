@@ -6,6 +6,7 @@ import Register from "./components/Auth/Register";
 import Chat from "./components/Chat/Chat";
 import LoadingSpinner from "./components/common/LoadingSpinner"; // Make sure to create this file
 import './index.css';
+import { API_BASE_URL } from "./components/constants";
 
 const App: React.FC = () => {
     const [user, setUser] = useState<{ id: number; username: string } | null>(null);
@@ -16,7 +17,7 @@ const App: React.FC = () => {
         const checkAuth = async () => {
             try {
                 // Fetch the PHP session check endpoint
-                const response = await fetch("http://localhost/ai-chat-system/my-ai-chat/backend/check_session.php", {
+                const response = await fetch("${API_BASE_URL}/backend/check_session.php", {
                     credentials: "include",
                 });
                 const data = await response.json();
@@ -37,7 +38,7 @@ const App: React.FC = () => {
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost/ai-chat-system/my-ai-chat/backend/logout.php", {
+            await fetch("${API_BASE_URL}/backend/logout.php", {
                 credentials: "include",
             });
             setUser(null);

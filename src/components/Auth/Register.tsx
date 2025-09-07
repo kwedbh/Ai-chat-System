@@ -20,7 +20,7 @@ const Register: React.FC = () => {
         setMessage('');
 
         try {
-            const response = await fetch('http://localhost/ai-chat-system/my-ai-chat/backend/register.php', {
+            const response = await fetch('${API_BASE_URL}/backend/register.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
