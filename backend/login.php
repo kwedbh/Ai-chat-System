@@ -1,8 +1,9 @@
 <?php
 // backend/login.php
+include 'cors.php';
+
 include 'db.php';
 header("Content-Type: application/json");
-session_start();
 
 $data = json_decode(file_get_contents("php://input"));
 

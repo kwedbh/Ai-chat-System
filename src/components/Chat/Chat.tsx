@@ -28,17 +28,11 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // This useEffect will run when the component first mounts
-    useEffect(() => {
-        // You can keep any non-API related logic here if needed
-    }, []);
-
-    // This NEW useEffect will only run when the `user` object is a valid user
     useEffect(() => {
         if (user && user.id) {
             fetchConversations();
         }
-    }, [user]); // The dependency array ensures this runs only when `user` changes
+    }, [user]);
 
     useEffect(() => {
         scrollToBottom();
@@ -50,7 +44,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
 
     const fetchConversations = async () => {
         const response = await fetch(`${API_BASE_URL}/get_conversations.php`, {
-            credentials: 'include' // This is crucial for sending the cookie
+            credentials: 'include' // **FIX: Added this line**
         });
         const data = await response.json();
         if (data.success) {
@@ -61,7 +55,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     const fetchSession = async (id: number) => {
         setIsLoading(true);
         const response = await fetch(`${API_BASE_URL}/get_session.php?sessionId=${id}`, {
-            credentials: 'include' // This is crucial for sending the cookie
+            credentials: 'include' // **FIX: Added this line**
         });
         const data = await response.json();
         if (data.success) {
@@ -88,7 +82,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: userMessage.content, sessionId }),
-                credentials: 'include'
+                credentials: 'include' // **FIX: Added this line**
             });
 
             const data = await response.json();
@@ -96,7 +90,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
                 const aiMessage: Message = { id: Date.now() + 1, sender: 'ai', content: data.response };
                 setChatHistory(prev => [...prev, aiMessage]);
                 setSessionId(data.sessionId);
-                fetchConversations(); // Refresh the sidebar
+                fetchConversations();
             } else {
                 alert(data.message);
             }
@@ -115,7 +109,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
 
         if (window.confirm('Are you sure you want to delete this conversation?')) {
             const response = await fetch(`${API_BASE_URL}/clear_session.php?sessionId=${sessionId}`, {
-                credentials: 'include'
+                credentials: 'include' // **FIX: Added this line**
             });
             const data = await response.json();
             if (data.success) {
