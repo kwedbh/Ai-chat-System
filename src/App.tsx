@@ -17,7 +17,7 @@ const App: React.FC = () => {
         const checkAuth = async () => {
             try {
                 // CORRECT: Use the constant directly with the script name
-                const response = await fetch(`${API_BASE_URL}/backend/check_session.php`, {
+                const response = await fetch(`${API_BASE_URL}/check_session.php`, {
                     credentials: "include",
                 });
                 const data = await response.json();
@@ -38,7 +38,7 @@ const App: React.FC = () => {
     const handleLogout = async () => {
         try {
             // CORRECT: Use the constant directly with the script name
-            await fetch(`${API_BASE_URL}/backend/logout.php`, {
+            await fetch(`${API_BASE_URL}/logout.php`, {
                 credentials: "include",
             });
             setUser(null);

@@ -49,7 +49,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     };
 
     const fetchConversations = async () => {
-        const response = await fetch(`${API_BASE_URL}/backend/get_conversations.php`, {
+        const response = await fetch(`${API_BASE_URL}/get_conversations.php`, {
             credentials: 'include' // This is crucial for sending the cookie
         });
         const data = await response.json();
@@ -60,7 +60,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
 
     const fetchSession = async (id: number) => {
         setIsLoading(true);
-        const response = await fetch(`${API_BASE_URL}/backend/get_session.php?sessionId=${id}`, {
+        const response = await fetch(`${API_BASE_URL}/get_session.php?sessionId=${id}`, {
             credentials: 'include' // This is crucial for sending the cookie
         });
         const data = await response.json();
@@ -84,7 +84,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
         setMessage('');
 
         try {
-            const response = await fetch(`${API_BASE_URL}/backend/chat.php`, {
+            const response = await fetch(`${API_BASE_URL}/chat.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: userMessage.content, sessionId }),
@@ -114,7 +114,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
         }
 
         if (window.confirm('Are you sure you want to delete this conversation?')) {
-            const response = await fetch(`${API_BASE_URL}/backend/clear_session.php?sessionId=${sessionId}`, {
+            const response = await fetch(`${API_BASE_URL}/clear_session.php?sessionId=${sessionId}`, {
                 credentials: 'include'
             });
             const data = await response.json();
