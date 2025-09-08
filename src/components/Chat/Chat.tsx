@@ -44,7 +44,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
 
     const fetchConversations = async () => {
         const response = await fetch(`${API_BASE_URL}/get_conversations.php`, {
-            credentials: 'include' // **FIX: Added this line**
+            credentials: 'include'  
         });
         const data = await response.json();
         if (data.success) {
@@ -55,7 +55,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
     const fetchSession = async (id: number) => {
         setIsLoading(true);
         const response = await fetch(`${API_BASE_URL}/get_session.php?sessionId=${id}`, {
-            credentials: 'include' // **FIX: Added this line**
+            credentials: 'include'  
         });
         const data = await response.json();
         if (data.success) {
@@ -82,7 +82,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: userMessage.content, sessionId }),
-                credentials: 'include' // **FIX: Added this line**
+                credentials: 'include'  
             });
 
             const data = await response.json();
@@ -109,7 +109,7 @@ const Chat: React.FC<ChatProps> = ({ user, onLogout }) => {
 
         if (window.confirm('Are you sure you want to delete this conversation?')) {
             const response = await fetch(`${API_BASE_URL}/clear_session.php?sessionId=${sessionId}`, {
-                credentials: 'include' // **FIX: Added this line**
+                credentials: 'include'  
             });
             const data = await response.json();
             if (data.success) {
