@@ -1,5 +1,6 @@
 <?php
 
+include 'session.php'; 
 include 'cors.php';
 
 if (isset($_SESSION['user_id'])) {

@@ -1,5 +1,7 @@
 <?php
 
+include 'session.php'; 
+
 include 'cors.php';
 
 session_unset();

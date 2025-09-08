@@ -1,7 +1,9 @@
 <?php
 
+include 'session.php'; 
 include 'cors.php';
 include 'db.php';
+include 'api_key.php';
 
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
@@ -58,7 +60,7 @@ try {
     $stmt->execute([$session_id, $prompt]);
 
     // 4. Call the AI API (using cURL for a simple example)
-    $gemini_api_key = "YOUR_GEMINI_API_KEY"; // Get this from Google AI Studio
+    $gemini_api_key = GEMINI_API_KEY; // Get this from Google AI Studio
     $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$gemini_api_key";
     $payload = json_encode(['contents' => [['parts' => [['text' => $prompt]]]]]);
 
