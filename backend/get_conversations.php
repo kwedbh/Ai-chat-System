@@ -1,5 +1,4 @@
 <?php
-// backend/get_conversations.php
 
 include 'cors.php';
 

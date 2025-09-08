@@ -1,5 +1,4 @@
 <?php
-// backend/get_session.php
 
 include 'cors.php';
 

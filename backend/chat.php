@@ -1,5 +1,4 @@
 <?php
-// backend/chat.php
 
 include 'cors.php';
 include 'db.php';

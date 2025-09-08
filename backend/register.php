@@ -1,5 +1,5 @@
 <?php
-// backend/register.php
+
 include 'cors.php';
 
 include 'db.php';

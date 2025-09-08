@@ -1,5 +1,4 @@
 <?php
-// backend/clear_session.php
 
 include 'cors.php';
 

@@ -1,5 +1,5 @@
 <?php
-// backend/check_session.php
+
 include 'cors.php';
 
 if (isset($_SESSION['user_id'])) {

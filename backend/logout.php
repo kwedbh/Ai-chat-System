@@ -1,5 +1,5 @@
 <?php
-// backend/logout.php
+
 include 'cors.php';
 
 session_unset();
