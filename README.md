@@ -8,7 +8,7 @@ A full-stack AI chat application built with React, PHP, and MySQL. This system a
 -   **AI Chat**: Real-time conversational AI powered by Google's Gemini API.
 -   **Conversation History**: Stores user prompts and AI replies in a database.
 -   **Daily Prompt Limit**: Free users can send up to 25 prompts daily.
--   **Responsive UI**: A user interface styled with Tailwind CSS, similar to popular platforms like ChatGPT.
+-   **Responsive UI**: A user-friendly interface styled with Tailwind CSS, similar to popular platforms like ChatGPT.
 
 ## Technologies
 
@@ -39,8 +39,8 @@ Follow these steps to set up and run the project locally.
 
 1.  **Clone the Repository**
     ```sh
-    git clone [https://github.com/kwedbh/Ai-chat-System](https://github.com/kwedbh/Ai-chat-System)
-    cd my-ai-chat-app
+    git clone [https://github.com/your-username/ai-chat-system.git](https://github.com/your-username/ai-chat-system.git)
+    cd ai-chat-system
     ```
 
 2.  **Backend Setup**
@@ -69,4 +69,4 @@ Contributions are welcome! If you find a bug or have an idea for a new feature, 
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License.
